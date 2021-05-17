@@ -1,0 +1,149 @@
+#:import MDRaisedButton kivymd.uix.button.MDRaisedButton
+#:import MDLabel kivymd.uix.label.MDLabel
+#:import MDBoxLayout kivymd.uix.boxlayout.MDBoxLayout
+#:import MDTextField kivymd.uix.textfield.MDTextField
+
+
+ScreenManager:
+    MenuScreen:
+    GameScreen:
+    SettingsScreen:
+    PlayersScreen:
+
+
+<GameScreen>:
+    name: 'game'
+    fant_text: text_label
+    info_text: information
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: 10
+        background_color: .93, .87, .63, 0
+        halign: 'center'
+        valign: 'center'
+
+        MDRaisedButton:
+            text: "Back"
+            on_press: root.manager.current = 'menu'
+            size_hint: 1, .1
+
+        MDLabel:
+            id: information
+            halign: 'center'
+            size_hint: (1, .1)
+            text_size: root.width, None
+            size: self.texture_size
+
+        MDLabel:
+            id: text_label
+            background_color: .93, .0, .63, 0
+            size_hint: (1, .8)
+            halign: 'center'
+            text: ''
+            padding: 100, 100
+            text_size: root.width, None
+            size: self.texture_size
+
+        MDRaisedButton:
+            text: "Get Card"
+            on_press: root.new_fant()
+            size_hint: 1, .1
+
+<NewPlayer>
+    orientation: "vertical"
+    spacing: 5
+
+    MDTextField:
+        id: new_name
+        hint_text: 'Name'
+
+<MenuScreen>:
+    name: 'menu'
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: 10
+        spacing: 5
+        Image:
+            source: 'logo.png'
+            size: self.texture_size
+
+        MDRaisedButton:
+            text: "New game"
+            on_press: root.manager.current = 'plscreen'
+            size_hint: 1, .2
+
+        MDRaisedButton:
+            text: "Settings"
+            on_press: root.manager.current = 'settings'
+            size_hint: 1, .2
+
+        MDRaisedButton:
+            text: "Exit"
+            on_press: quit()
+            size_hint: 1, .2
+
+
+<SettingsScreen>:
+    name: 'settings'
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: 10
+
+        MDLabel:
+            text: "Settings"
+            valign: "center"
+            size_hint: 1, .1
+
+        MDRaisedButton:
+            text: "Back"
+            on_press: root.manager.current = 'menu'
+            size_hint: 1, .2
+
+<PlayersScreen>:
+    name: 'plscreen'
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: 10
+        spacing: 5
+
+        MDLabel:
+            text: "Settings"
+            valign: "center"
+            size_hint: 1, .1
+
+        MDBoxLayout:
+            size_hint: 1, .6
+            orientation: "vertical"
+            spacing: "10dp"
+
+            ScrollView:
+                id: list
+
+                MDList:
+                    id: container
+
+        MDBoxLayout:
+            orientation: 'vertical'
+            padding: 10
+            spacing: 5
+            size_hint: 1, .3
+            MDTextField:
+                # padding: 20
+                # spacing: 20
+                # halign: 'center'
+                size_hint: 1, 1
+                id: new_name
+                # mode: 'rectangle'
+                hint_text: 'new name'
+
+            MDRaisedButton:
+                text: "Add Player"
+                on_press: root.add_player()
+                size_hint: 1, .3
+
+            MDRaisedButton:
+                text: "Continue"
+                on_press: root.manager.current = 'game'
+                size_hint: 1, .3
